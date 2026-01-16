@@ -13,7 +13,17 @@ You are building the backend for a user dashboard. The frontend needs to display
      *   Fetch User details from `https://jsonplaceholder.typicode.com/users/:id`
      *   Fetch User's Posts from `https://jsonplaceholder.typicode.com/posts?userId=:id`
      *   **Merge** the data into a single JSON response:
-         ```json          {            "id": 1,            "name": "Leanne Graham",            "email": "Sincere@april.biz",            "company": "Romaguera-Crona",            "posts": [              { "id": 1, "title": "...", "body": "..." },              ...            ]          }          ```
+         ```{
+              "id": 1,
+              "name": "Leanne Graham",
+              "email": "Sincere@april.biz",
+              "company": "Romaguera-Crona",
+              "posts": [
+                { "id": 1, "title": "...", "body": "..." },
+                ...
+              ]
+            }
+```
 
  2.  **Error Handling:**
      *   If the user ID does not exist (external API returns 404), your API must return a clean 404 with a message `{"error": "User not found"}`.
