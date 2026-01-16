@@ -24,7 +24,7 @@ You are building the backend for a user dashboard. The frontend needs to display
                 ...
               ]
             }
-```
+          ```
 
  2.  **Error Handling:**
      *   If the user ID does not exist (external API returns 404), your API must return a clean 404 with a message `{"error": "User not found"}`.
