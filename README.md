@@ -30,7 +30,7 @@ You are building the backend for a user dashboard. The frontend needs to display
      *   If the user ID does not exist (external API returns 404), your API must return a clean 404 with a message `{"error": "User not found"}`.
      *   Handle cases where the external API is down or times out.
 
- 3.  **Bonus (Expectation for Senior Devs):**
+ 3.  **Bonus (If time permits):**
      *   Implement a simple in-memory cache (e.g., global object or Map) so repeated requests for the same ID don't hit the external API.
 
  **Stack:** Node.js, Express.js (Standard JavaScript, ES6+ features encouraged).
