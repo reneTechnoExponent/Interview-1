@@ -13,7 +13,8 @@ You are building the backend for a user dashboard. The frontend needs to display
      *   Fetch User details from `https://jsonplaceholder.typicode.com/users/:id`
      *   Fetch User's Posts from `https://jsonplaceholder.typicode.com/posts?userId=:id`
      *   **Merge** the data into a single JSON response:
-         ```{
+         ```
+            {
               "id": 1,
               "name": "Leanne Graham",
               "email": "Sincere@april.biz",
