@@ -1,15 +1,12 @@
 /**
- * Standard API Response structure function
- * @param {number} statusCode
- * @param {any} data
- * @param {string} message
+ * Standard API Response structure factory (Functional style)
  */
-const createApiResponse = (statusCode, data, message = "Success") => {
+const createApiResponse = (statusCode, data, msg = "Success") => {
   return {
+    timestamp: new Date().toISOString(),
     statusCode,
+    msg,
     data,
-    message,
-    success: statusCode < 400,
   };
 };
 

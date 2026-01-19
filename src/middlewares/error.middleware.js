@@ -1,9 +1,10 @@
 const ApiError = require("../utils/ApiError");
+const { logError } = require("../utils/logger");
 
 /**
- * Global Error Handling Middleware for centralized error responses
+ * Global Error Handling Middleware
  */
-const errorHandler = (err, req, res, next) => {
+const errorHandler = async (err, req, res, next) => {
   let { statusCode, message } = err;
 
   // If error is not an instance of ApiError, it's an unexpected error
@@ -13,11 +14,22 @@ const errorHandler = (err, req, res, next) => {
   }
 
   const response = {
-    error: message,
+    timestamp: new Date().toISOString(),
+    statusCode,
+    msg: message,
+    data: null,
     ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
   };
 
-  console.error(`[Error Handler] ${statusCode} - ${message}`);
+  // Log the error using our new functional logger
+  await logError({
+    route: req.originalUrl,
+    method: req.method,
+    message: err.message,
+    statusCode,
+    ip: req.ip || req.connection.remoteAddress || "127.0.0.1",
+    stack: err.stack,
+  });
 
   return res.status(statusCode).json(response);
 };
