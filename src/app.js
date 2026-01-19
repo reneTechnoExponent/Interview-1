@@ -9,6 +9,7 @@ const errorHandler = require("./middlewares/error.middleware");
 const {
   ipBolckerShort,
   activityLogger,
+  rateLimiter,
 } = require("./middlewares/custom.middleware");
 const { swaggerUi, specs } = require("./config/swagger.config");
 
@@ -27,6 +28,7 @@ app.use(cookieParser());
 // Custom Middlewares
 app.use(ipBolckerShort);
 app.use(activityLogger);
+app.use(rateLimiter());
 
 // Swagger Documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
