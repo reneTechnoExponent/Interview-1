@@ -27,11 +27,11 @@ class DashboardController {
       name: user.name,
       email: user.email,
       company: user.company ? user.company.name : "Unknown",
-      posts: posts.map((post) => ({
+      posts: posts?.map((post) => ({
         id: post.id,
         title: post.title,
         body: post.body,
-      })),
+      })) || [],
     };
 
     return res
