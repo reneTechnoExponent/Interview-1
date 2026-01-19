@@ -15,11 +15,37 @@ class DashboardController {
 
     console.log(`[DashboardController] Fetching data for userId: ${userId}`);
 
-    // Fetch user and posts in parallel for performance
-    const [user, posts] = await Promise.all([
+    // Fetch user and posts in parallel using allSettled to handle partial failures
+    const results = await Promise.allSettled([
       UserService.getUserById(userId),
       PostService.getPostsByUserId(userId),
     ]);
+
+    const userResult = results[0];
+    const postsResult = results[1];
+
+    // 1. Handle User Result (Critical)
+    // If user profile fails, we cannot build the dashboard response
+    if (userResult.status === "rejected") {
+      console.error(
+        `[DashboardController] User API failed:`,
+        userResult.reason,
+      );
+      throw userResult.reason;
+    }
+    const user = userResult.value;
+
+    // 2. Handle Posts Result (Non-Critical)
+    // If posts fail, we return an empty array instead of failing the whole request
+    let posts = [];
+    if (postsResult.status === "fulfilled") {
+      posts = postsResult.value;
+    } else {
+      console.warn(
+        `[DashboardController] Posts API failed, defaulting to empty list:`,
+        postsResult.reason,
+      );
+    }
 
     // Transform and aggregate the data
     const dashboardData = {
@@ -27,11 +53,13 @@ class DashboardController {
       name: user.name,
       email: user.email,
       company: user.company ? user.company.name : "Unknown",
-      posts: posts?.map((post) => ({
+      posts: posts.map((post) => ({
         id: post.id,
         title: post.title,
         body: post.body,
-      })) || [],
+      })),
+      // Optional: Add a flag if some data was missing
+      _partial: postsResult.status === "rejected",
     };
 
     return res
@@ -40,7 +68,9 @@ class DashboardController {
         new ApiResponse(
           200,
           dashboardData,
-          "Dashboard data retrieved successfully",
+          postsResult.status === "fulfilled"
+            ? "Dashboard data retrieved successfully"
+            : "Dashboard data retrieved (posts unavailable)",
         ),
       );
   });
