@@ -1,0 +1,26 @@
+const apiClient = require("../config/apiClient.config");
+const ApiError = require("../utils/ApiError");
+
+/**
+ * Fetch posts for a specific user ID
+ * @param {string|number} userId
+ */
+const getPostsByUserId = async (userId) => {
+  try {
+    const response = await apiClient.get(`/posts?userId=${userId}`);
+    // console.log('posts response==> ', response.data);
+    return response.data;
+  } catch (error) {
+    if (error.code === "ECONNABORTED" || error.code === "ETIMEDOUT") {
+      throw new ApiError(504, "External API request timed out");
+    }
+    throw new ApiError(
+      500,
+      "External API is currently unavailable or returned an error while fetching posts",
+    );
+  }
+};
+
+module.exports = {
+  getPostsByUserId,
+};

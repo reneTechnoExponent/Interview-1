@@ -1,0 +1,12 @@
+[
+  {
+    "method": "GET",
+    "url": "/api/dashboard/1",
+    "statusCode": 200,
+    "duration": "684ms",
+    "ip": "152.59.162.97",
+    "userAgent": "PostmanRuntime/7.51.0",
+    "payload": null,
+    "timestamp": "2026-01-19T13:33:05.435Z"
+  }
+]
