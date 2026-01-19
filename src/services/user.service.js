@@ -17,7 +17,13 @@ class UserService {
       if (error.response && error.response.status === 404) {
         throw new ApiError(404, "User not found");
       }
-      throw new ApiError(500, "External API error while fetching user details");
+      if (error.code === "ECONNABORTED" || error.code === "ETIMEDOUT") {
+        throw new ApiError(504, "External API request timed out");
+      }
+      throw new ApiError(
+        500,
+        "External API is currently unavailable or returned an error",
+      );
     }
   }
 }

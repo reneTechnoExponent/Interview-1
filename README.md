@@ -1,37 +1,36 @@
-# Interview-1
+# Dashboard Aggregator API
 
-**Task: User Dashboard Aggregation API**
+This project is a RESTful API built with Node.js and Express.js that aggregates user profile data and posts from external legacy APIs into a single, optimized response.
 
-**Time Limit:** 60 Minutes
+## Features
 
-**Objective:** Build a RESTful API using Node.js and Express.js that aggregates data from multiple external sources into a single optimized dashboard response.
+- **Data Aggregation**: Combines user details and posts.
+- **Caching**: Simple in-memory cache for repeated requests.
+- **error Handling**: Centralized error management with clean responses.
+- **Security**: Basic protection with `helmet` and `cors`.
+- **Documentation**: Integrated Swagger UI for API exploration.
 
-**Scenario:**
-You are building the backend for a user dashboard. The frontend needs to display a user's profile and their latest posts. The data lives in two separate legacy APIs.
+## Quick Start
 
-**Requirements:**
- 1.  **GET /api/dashboard/:userId**
-     *   Fetch User details from `https://jsonplaceholder.typicode.com/users/:id`
-     *   Fetch User's Posts from `https://jsonplaceholder.typicode.com/posts?userId=:id`
-     *   **Merge** the data into a single JSON response:
-         ```
-           {
-              "id": 1,
-              "name": "Leanne Graham",
-              "email": "Sincere@april.biz",
-              "company": "Romaguera-Crona",
-              "posts": [
-                { "id": 1, "title": "...", "body": "..." },
-                ...
-              ]
-            }
-          ```
+1. **Install Dependencies**:
 
- 2.  **Error Handling:**
-     *   If the user ID does not exist (external API returns 404), your API must return a clean 404 with a message `{"error": "User not found"}`.
-     *   Handle cases where the external API is down or times out.
+   ```bash
+   npm install
+   ```
 
- 3.  **Bonus (If time permits):**
-     *   Implement a simple in-memory cache (e.g., global object or Map) so repeated requests for the same ID don't hit the external API.
+2. **Run in Development**:
 
- **Stack:** Node.js, Express.js (Standard JavaScript, ES6+ features encouraged).
+   ```bash
+   npm run dev
+   ```
+
+3. **API Documentation**:
+   Navigate to [http://localhost:3000/api-docs](http://localhost:3000/api-docs) to view the interactive Swagger documentation.
+
+## Main Endpoint
+
+- `GET /api/dashboard/:userId`: Returns aggregated data for the specified user.
+
+## Detailed Documentation
+
+For more detailed information on structure and notes, see [docs/README.md](./docs/README.md).

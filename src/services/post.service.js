@@ -14,7 +14,13 @@ class PostService {
       const response = await apiClient.get(`/posts?userId=${userId}`);
       return response.data;
     } catch (error) {
-      throw new ApiError(500, "External API error while fetching user posts");
+      if (error.code === "ECONNABORTED" || error.code === "ETIMEDOUT") {
+        throw new ApiError(504, "External API request timed out");
+      }
+      throw new ApiError(
+        500,
+        "External API is currently unavailable or returned an error while fetching posts",
+      );
     }
   }
 }
