@@ -8,6 +8,7 @@ const ApiError = require("../utils/ApiError");
 const getPostsByUserId = async (userId) => {
   try {
     const response = await apiClient.get(`/posts?userId=${userId}`);
+    // console.log('posts response==> ', response.data);
     return response.data;
   } catch (error) {
     if (error.code === "ECONNABORTED" || error.code === "ETIMEDOUT") {

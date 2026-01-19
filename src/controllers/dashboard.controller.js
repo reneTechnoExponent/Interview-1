@@ -49,7 +49,15 @@ const getDashboardData = asyncHandler(async (req, res) => {
       title: post.title,
       body: post.body,
     })),
-    _partial: postsResult.status === "rejected",
+    // _partial: postsResult.status === "rejected",
+
+    // // /* for future use */
+    // // const dashboardData = {
+    // // ...user,
+    // // posts: posts.map((post) => ({
+    // //   ...post
+    // // })),
+    // // _partial: postsResult.status === "rejected",
   };
 
   return res

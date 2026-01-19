@@ -8,6 +8,7 @@ const ApiError = require("../utils/ApiError");
 const getUserById = async (userId) => {
   try {
     const response = await apiClient.get(`/users/${userId}`);
+    // console.log('user response==> ', response.data);
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 404) {
