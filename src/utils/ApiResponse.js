@@ -1,13 +1,18 @@
 /**
- * Standard API Response structure
+ * Standard API Response structure function
+ * @param {number} statusCode
+ * @param {any} data
+ * @param {string} message
  */
-class ApiResponse {
-  constructor(statusCode, data, message = "Success") {
-    this.statusCode = statusCode;
-    this.data = data;
-    this.message = message;
-    this.success = statusCode < 400;
-  }
-}
+const createApiResponse = (statusCode, data, message = "Success") => {
+  return {
+    statusCode,
+    data,
+    message,
+    success: statusCode < 400,
+  };
+};
 
-module.exports = ApiResponse;
+module.exports = {
+  createApiResponse,
+};
